@@ -3,6 +3,7 @@ package samsung.itschool.nick.platformer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.appindexing.Action;
@@ -27,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
         Button Left = (Button) findViewById(R.id.left);
         Button Right = (Button) findViewById(R.id.right);
 
-        Up.setOnClickListener(new UpListener());
-        Down.setOnClickListener(new DownListener());
-        Left.setOnClickListener(new LeftListener());
-        Right.setOnClickListener(new RightListener());
+        Up.setOnTouchListener(new UpListener());
+        Down.setOnTouchListener(new DownListener());
+        Left.setOnTouchListener(new LeftListener());
+        Right.setOnTouchListener(new RightListener());
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

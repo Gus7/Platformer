@@ -26,15 +26,15 @@ public class Ladder {
     Paint paint = new Paint();
 
     void draw(Canvas canvas){
-        RectF rect = new RectF(x1,y1,x2,y2);
+
+        int heightCount = (int)(y2 - y1)/(pic.getHeight()/2);
+        for (int i = 0; i <= heightCount; i++){
+        RectF rect = new RectF(x1,y1+(pic.getHeight()/2)*i,x2,y1+(pic.getHeight()/2)*(i+1));
 
         canvas.drawBitmap(pic, null, rect, paint);
-        /*
-        int heightCount = (int)(y2 - y1)/pic.getHeight();
-        for (int i = 0; i < heightCount; i++){
-            RectF rect = new RectF(x1,y1+(pic.getHeight()*i),x2,y2+(pic.getHeight()*(i+1)));
-            canvas.drawBitmap(pic, null, rect, paint);
-        }*/
+        }
+/*
 
+*/
     }
 }

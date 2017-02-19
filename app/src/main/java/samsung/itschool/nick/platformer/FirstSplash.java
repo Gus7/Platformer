@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class FirstSplash extends AppCompatActivity {
+public class FirstSplash extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,10 +14,12 @@ public class FirstSplash extends AppCompatActivity {
         setContentView(R.layout.first_splash);
 
         Button b = (Button) findViewById(R.id.button);
-        b.setOnClickListener((View.OnClickListener) FirstSplash.this);
+        b.setOnClickListener( FirstSplash.this);
     }
 
 
+
+    @Override
     public void onClick(View v) {
         Intent intent = new Intent(FirstSplash.this, MainActivity.class);
         startActivity(intent);
