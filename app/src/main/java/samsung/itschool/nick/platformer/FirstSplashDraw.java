@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -17,12 +18,12 @@ public class FirstSplashDraw extends View{
         super(context, attrs);
 
     }
-    Bitmap pic = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.hero);
+    Bitmap pic = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.firstbackground);
     Paint paint = new Paint();
     @Override
     public void onDraw(Canvas canvas){
-
-        canvas.drawBitmap(pic, 0, 0,paint);
+        RectF rectF = new RectF(0,0,canvas.getWidth(),canvas.getHeight());
+        canvas.drawBitmap(pic, null, rectF ,paint);
     }
 }
 
