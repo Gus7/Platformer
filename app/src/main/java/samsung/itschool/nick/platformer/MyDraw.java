@@ -6,12 +6,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static android.R.attr.port;
 
 import static android.R.attr.x;
 import static android.R.attr.y;
+import static android.content.ContentValues.TAG;
 import static java.lang.System.in;
 import static samsung.itschool.nick.platformer.Vector.v;
 import static samsung.itschool.nick.platformer.Hero.pos;
@@ -23,6 +30,9 @@ import static samsung.itschool.nick.platformer.Hero.pos;
 
 public class MyDraw extends View {
 
+    FileInputStream fin = new FileInputStream("Levels.txt");
+
+
     public static int mDirection;
     public static int turnDirection;
     private static final int Up = 1;
@@ -31,12 +41,18 @@ public class MyDraw extends View {
     private static final int Left = 4;
     void start(Context context)
     {
+        try {
+            fin.read();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ladder = new Ladder[1];
         for(int i = 0; i < ladder.length; i++){
             ladder[i] = new Ladder(480,270,580,760,
                     context, R.drawable.ladder);
         }
-        hero = new Hero(600,750-200, 1, context, R.drawable.hero);
+        hero = new Hero(0,0, 1, context, R.drawable.hero);
         block = new Block[5];
         block[0] = new Block(0,845,480,845+10,context, R.drawable.block);
         block[1] = new Block(480,760,960,760+10,context, R.drawable.block);
@@ -49,7 +65,7 @@ public class MyDraw extends View {
     Hero hero;
     Block[] block;
     Ladder[] ladder;
-    public MyDraw(Context context, AttributeSet attrs) {
+    public MyDraw(Context context, AttributeSet attrs) throws FileNotFoundException {
         super(context, attrs);
         start(context);
     }
@@ -84,7 +100,15 @@ public class MyDraw extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+        if (onGround == false && onLadder == false ){
+            //Toast.makeText(this.getContext(), "Toast", Toast.LENGTH_SHORT).show();
 
+                hero.toGo.setY((hero.pos.y + 100));
+               Log.i(TAG, " fall" );
+
+
+
+        }
 
        Physic();
 
@@ -95,7 +119,7 @@ public class MyDraw extends View {
                 else if(onLadder && !onGround){
                     hero.toGo.setY(pos.y-50);
                 }else if (onGround && !onLadder){
-                    hero.pos.setY(pos.y-250);
+                    hero.pos.setY(pos.y-200);
 
                     //hero.toGo.setY(pos.y-2050);
 
@@ -157,11 +181,8 @@ public class MyDraw extends View {
             ladder[i].draw(canvas);
         }
         Physic();
-        if (onGround == false && onLadder == false ){
-            //Toast.makeText(this.getContext(), "Toast", Toast.LENGTH_SHORT).show();
-            hero.toGo.setY( (hero.pos.y + 100));
 
-        }
+        Log.i(TAG, hero.toGo + " " + hero.pos);
         hero.draw(canvas);
         hero.move(canvas);
 

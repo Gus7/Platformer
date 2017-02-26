@@ -18,7 +18,7 @@ public class FirstSplashDraw extends View{
         super(context, attrs);
 
     }
-    Bitmap pic = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.firstbackground);
+    Bitmap pic = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.splash);
     Paint paint = new Paint();
     @Override
     public void onDraw(Canvas canvas){

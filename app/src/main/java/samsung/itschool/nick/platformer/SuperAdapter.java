@@ -18,24 +18,23 @@ import android.widget.Toast;
  */
 public class SuperAdapter extends ArrayAdapter<String> {
     SuperAdapter(Context context, String[] array){
-        super(context, R.layout.activity_menu, array);
+        super(context, R.layout.myitem, array);
 
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_menu, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.myitem, null);
         }
         TextView textView = (TextView)convertView.findViewById(R.id.list_item);
         textView.setText(getItem(position));
-        textView.setBackgroundColor(Color.rgb(3,3,3));
+
         final int pos = position;
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getContext(),getItem(pos),Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(getContext(),getItem(pos),Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;

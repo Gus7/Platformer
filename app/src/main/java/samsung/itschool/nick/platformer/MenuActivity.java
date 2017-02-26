@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import static samsung.itschool.nick.platformer.R.id.activity_menu;
+
+
 
 public class MenuActivity extends AppCompatActivity {
 
