@@ -7,7 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by User on 03.01.2017.
@@ -18,12 +22,14 @@ public class FirstSplashDraw extends View{
         super(context, attrs);
 
     }
+
     Bitmap pic = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.splash);
     Paint paint = new Paint();
     @Override
     public void onDraw(Canvas canvas){
         RectF rectF = new RectF(0,0,canvas.getWidth(),canvas.getHeight());
         canvas.drawBitmap(pic, null, rectF ,paint);
+
     }
 }
 

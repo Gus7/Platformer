@@ -1,0 +1,14 @@
+id       ;   1                    ;
+name     ; Welcome                ;
+heroPos  ; 200 400                ;
+N of lad ; 1                      ;
+ladderX1 ; 480                    ;
+ladderY1 ; 270                    ;
+ladderX2 ; 580                    ;
+ladderY2 ; 760                    ;
+N of blo ; 5                      ;
+block X1 ; 0    480  960  960  480;
+block Y1 ; 845  760  675  405  270;
+block X2 ; 480  960  1920 1920 960;
+block Y2 ; 855  770  685  415  280;
+backgrou ;  firstbackground        ;

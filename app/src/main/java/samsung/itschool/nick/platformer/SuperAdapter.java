@@ -17,6 +17,7 @@ import android.widget.Toast;
  * Created by student2 on 07.02.17.
  */
 public class SuperAdapter extends ArrayAdapter<String> {
+    static int levelId;
     SuperAdapter(Context context, String[] array){
         super(context, R.layout.myitem, array);
 
@@ -35,6 +36,7 @@ public class SuperAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),getItem(pos),Toast.LENGTH_SHORT).show();
+                levelId = (pos);
             }
         });
         return convertView;

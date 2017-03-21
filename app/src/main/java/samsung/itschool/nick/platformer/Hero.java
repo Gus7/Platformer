@@ -25,7 +25,7 @@ import static samsung.itschool.nick.platformer.Vector.v;
  */
 
 public class Hero {
-    Vector toGo = new Vector(0,0);
+    Vector toGo = pos;
     static Vector pos;
 
     Float size;

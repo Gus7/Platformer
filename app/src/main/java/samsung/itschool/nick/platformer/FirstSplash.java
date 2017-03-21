@@ -20,6 +20,8 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
         Button men = (Button) findViewById(R.id.butMenu);
         b.setOnClickListener( FirstSplash.this);
         men.setOnClickListener(FirstSplash.this);
+
+
     }
 
 
