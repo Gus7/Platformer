@@ -1,0 +1,16 @@
+toGo     ; 200 400                  ; 200 625                            ;
+id       ;   1                      ;  2                                 ;
+name     ; Welcome                  ; FirstChallenge                     ;
+heroPos  ; 200 400                  ; 200 625                            ;
+N of lad ; 1                        ; 1                                  ;
+ladderX1 ; 480                      ; 0                                  ;
+ladderY1 ; 270                      ; 200                                ;
+ladderX2 ; 580                      ; 100                                ;
+ladderY2 ; 760                      ; 950                                ;
+N of blo ; 5                        ; 6                                  ;
+block X1 ; 0  480  960  960  480    ; 0  0  0  840  470  1600            ;
+block Y1 ; 845  760  675  405  270  ; 200  525  950  525  457  800       ;
+block X2 ; 480  960  1920  1920  960; 1280  320  320  1160  690  1920    ;
+block Y2 ; 855  770  685  415  280  ; 220  545  970  545  477  820       ;
+backgrou ; firstsplash_min          ; splash_min                         ;
+door     ; 1790 200                 ; 1700 600                           ;

@@ -1,7 +1,7 @@
 package samsung.itschool.nick.platformer;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 
@@ -13,9 +13,9 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        String[] numbers = new String[100];
-        for (int i = 0; i < 100; i++){
-            numbers[i] = i + "";
+        String[] numbers = new String[2];
+        for (int i = 0; i < 2; i++){
+            numbers[i] = (int)(i+1) + "";
         }
 
         ListView lv = (ListView) findViewById(R.id.listView);

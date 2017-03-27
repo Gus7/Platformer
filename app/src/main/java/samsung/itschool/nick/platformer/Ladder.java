@@ -11,7 +11,7 @@ import android.graphics.RectF;
  * Created by User on 01.01.2017.
  */
 
-public class Ladder {
+public class  Ladder {
     Bitmap pic;
     float x1,x2,y1,y2;
     Ladder(float x1, float y1, float x2, float y2, Context context, int picResId){

@@ -7,17 +7,15 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by User on 03.01.2017.
  */
 
 public class FirstSplashDraw extends View{
+    static float height;
+    static float width;
     public FirstSplashDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -29,6 +27,9 @@ public class FirstSplashDraw extends View{
     public void onDraw(Canvas canvas){
         RectF rectF = new RectF(0,0,canvas.getWidth(),canvas.getHeight());
         canvas.drawBitmap(pic, null, rectF ,paint);
+
+        width = canvas.getWidth();
+        height = canvas.getHeight();
 
     }
 }

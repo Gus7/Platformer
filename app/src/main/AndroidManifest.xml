@@ -25,6 +25,7 @@
 
         <activity android:name=".MainActivity" />
         <activity android:name=".MenuActivity"/>
+        <service android:enabled="true" android:name=".MusicService" />
     </application>
 
 </manifest>
