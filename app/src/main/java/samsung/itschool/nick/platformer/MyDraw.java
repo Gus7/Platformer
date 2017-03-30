@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.height;
@@ -27,7 +28,7 @@ import static samsung.itschool.nick.platformer.SuperAdapter.levelId;
  * Created by User on 29.12.2016.
  */
 
-public class MyDraw extends View {
+public class MyDraw extends View  {
 
     public static int mDirection;
     public static int turnDirection;
@@ -37,9 +38,17 @@ public class MyDraw extends View {
     private static final int Left = 4;
 
 
+
+
     void start(Context context)
     {
         int id = levelId+1;
+        heropic = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero);
+        heropicl = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol);
+        ladderpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.ladder);
+        blockpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.block);
+        mobpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol);
+        bulletpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
 
         try {
@@ -146,19 +155,60 @@ public class MyDraw extends View {
             line_ = reader.readLine();
             levs_ = line_.split(";");
             words_ = levs_[id].split(" ");
-            door = new Door(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005, R.drawable.hero, context);
+            door = new Door(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005, heropic, context);
+
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            int N_Mob = 1;
+            N_Mob = Integer.parseInt(words_[1]);
+            //int N_Blo = Integer.parseInt(words_[1]);
+            mob = new Mob[N_Mob];
+
+            //Log.i(TAG, N_Blo + " ++++++++++++++++++++++++++++++");
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] mobX1 = words_;
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] mobY1 = words_;
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] mobX2 = words_;
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] mobY2 = words_;
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] mobSPX = words_;
 
             reader.close();
 
             for(int i = 0; i < ladder.length; i++){
                 ladder[i] = new Ladder(Float.parseFloat(ladderX1[2*i+1])*width/1920,Float.parseFloat(ladderY1[2*i+1])*height/1005,Float.parseFloat(ladderX2[2*i+1])*width/1920,Float.parseFloat(ladderY2[2*i+1])*height/1005,
-                        context, R.drawable.ladder);
+                        context, ladderpic);
             }
 
             for(int i = 0; i < block.length; i++){
                 //Log.i(TAG,Float.parseFloat(blockX1[i])+ Float.parseFloat(blockY1[i])+ Float.parseFloat(blockX2[i])+Float.parseFloat(blockY2[i])+ " ");
                 block[i] = new Block(Float.parseFloat(blockX1[2*i+1])*width/1920,Float.parseFloat(blockY1[2*i+1])*height/1005,Float.parseFloat(blockX2[2*i+1])*width/1920,Float.parseFloat(blockY2[2*i+1])*height/1005,
-                        context, R.drawable.block);
+                        context, blockpic);
+            }
+
+            for(int i = 0; i < mob.length; i++){
+                mob[i] = new Mob(Float.parseFloat(mobX1[2*i+1])*width/1920,Float.parseFloat(mobY1[2*i+1])*height/1005,Float.parseFloat(mobX2[2*i+1])*width/1920,Float.parseFloat(mobY2[2*i+1])*height/1005,
+                        Float.parseFloat(mobSPX[2*i+1])*width/1920, mobpic);
             }
 
         } catch (FileNotFoundException e) {
@@ -188,8 +238,18 @@ public class MyDraw extends View {
     Door door;
     Block[] block;
     Ladder[] ladder;
+    Mob[] mob;
+    static ArrayList<Bullet> bullet = new ArrayList<>();
+
     Bitmap background;
+    Bitmap heropic;
+    Bitmap heropicl;
+    Bitmap ladderpic;
+    Bitmap blockpic;
+    Bitmap mobpic;
+    static Bitmap bulletpic;
     Paint p = new Paint();
+
     public MyDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
         start(context);
@@ -219,28 +279,69 @@ public class MyDraw extends View {
                 //hero.toGo.setY(hero.pos.y);
             }
         }
+        if (bullet.size() > 0) {
+            for (int i = 0; i < mob.length; i++) {
+                for (int j = 0; j < bullet.size(); j++) {
+                    if (mob[i].y1 <= bullet.get(j).y & mob[i].y2 >= bullet.get(j).y & mob[i].x1 <= bullet.get(j).x + bulletpic.getWidth() & mob[i].x2 >= bullet.get(j).x) {
+                        mob[i].isalife = false;
+                        bullet.get(j).isalife = false;
+                        //hero.toGo.setY(hero.pos.y);
+                    }
+                }
+            }
+        }
+
+
+
 
     }
     boolean onLadder;
     boolean onGround;
 /* Поменять всеееее при вводе карты!!!!!!!!!!!!!!!!!*/
     Context context;
-    Bitmap pic;
+    RectF rectF;
     @Override
     public void onDraw(Canvas canvas) {
         //Log.i(TAG,canvas.getHeight() + " " + canvas.getWidth() );
 
-        pic = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero);
-        Physic();
 
+        Physic();
+        rectF = new RectF(0,0,canvas.getWidth(),canvas.getHeight());
+        canvas.drawBitmap(background, null, rectF , p);
+        //canvas.drawColor(Color.GREEN);
+        for (int i = 0; i < block.length; i++){
+            block[i].draw(canvas, blockpic);
+        }
+        for (int i = 0; i < ladder.length; i++){
+            ladder[i].draw(canvas, ladderpic);
+        }
+
+        for (int i = 0; i < mob.length; i++){
+            if(mob[i].isalife){
+            mob[i].draw(canvas, mobpic);
+            mob[i].move(canvas);}
+            else {mob[i].y1 -= 10000;
+                mob[i].y2 -= 10000;}
+        }
+        if (bullet.size() > 0) {
+            for (int i = 0; i < bullet.size(); i++) {
+                if (bullet.get(i).isalife) {
+                    bullet.get(i).move(canvas);
+                    bullet.get(i).draw(canvas);
+                } else {
+                    bullet.remove(i);
+                }
+            }
+        }
+        hero.draw(canvas, heropic);
         switch (mDirection) {
             case Up: {
                 if(onLadder && onGround){
-                    hero.pos.setY(pos.y-50);}
+                    hero.pos.setY(pos.y-50*height/1080);}
                 else if(onLadder && !onGround){
-                    hero.toGo.setY(pos.y-50);
+                    hero.toGo.setY(pos.y-50*height/1080);
                 }else if (onGround && !onLadder){
-                    hero.pos.setY(pos.y-165);
+                    hero.pos.setY(pos.y-165*height/1080);
 
                     //hero.toGo.setY(pos.y-2050);
 
@@ -256,11 +357,11 @@ public class MyDraw extends View {
 
 
                 if(onLadder && onGround){
-                    hero.pos.setY(pos.y+15);}
+                    hero.pos.setY(pos.y+15*height/1080);}
                 else if(onLadder && !onGround){
-                    hero.toGo.setY(pos.y+40);
+                    hero.toGo.setY(pos.y+40*height/1080);
                 }else if (onGround && !onLadder){
-                    hero.pos.setY(pos.y+5);
+                    hero.pos.setY(pos.y+5*height/1080);
 
                     //hero.toGo.setY(pos.y-2050);
 
@@ -280,16 +381,16 @@ public class MyDraw extends View {
         switch (turnDirection) {
 
             case Right: {
-                if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x+100);
-                else hero.toGo.setX(pos.x+40);
-                pic = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero);
+                if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x+100*width/1920);
+                else hero.toGo.setX(pos.x+45*width/1920);
+                hero.draw(canvas, heropic);
                 break;
             }
             case Left: {
 
-                if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x-100);
-                else hero.toGo.setX(pos.x-40);
-                pic = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol);
+                if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x-100*width/1920);
+                else hero.toGo.setX(pos.x-45*width/1920);
+                hero.draw(canvas, heropicl);
                 break;
             }
 
@@ -302,26 +403,21 @@ public class MyDraw extends View {
 
         if (onGround == false && onLadder == false ){
             //Toast.makeText(this.getContext(), "Toast", Toast.LENGTH_SHORT).show();
-            hero.toGo.setY( (hero.pos.y + 100));
+            hero.toGo.setY( (hero.pos.y + 100*height/1080));
 
         }
-        RectF rectF = new RectF(0,0,canvas.getWidth(),canvas.getHeight());
-        canvas.drawBitmap(background, null, rectF , p);
-        for (int i = 0; i < block.length; i++){
-            block[i].draw(canvas);
-        }
-        for (int i = 0; i < ladder.length; i++){
-            ladder[i].draw(canvas);
-        }
-        hero.draw(canvas, pic);
+
+
+
+
         hero.move(canvas);
         door.draw(canvas);
-        Boolean doorOpen = false;
+
         if (door.x - 90 <= pos.x && door.x + 180 >= pos.x && door.y - 90 <= pos.y && door.y + 180 >= pos.y){
 
-            doorOpen = true;
 
 
+            bullet.clear();
             levelId += 1;
             start(getContext());
 
@@ -331,6 +427,7 @@ public class MyDraw extends View {
 
         this.invalidate();
     }
+
 
 
 }

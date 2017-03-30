@@ -4,14 +4,14 @@ package samsung.itschool.nick.platformer;
  * Created by kolya on 21.02.2017.
  */
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by student2 on 07.02.17.
@@ -20,9 +20,9 @@ public class SuperAdapter extends ArrayAdapter<String> {
     static int levelId;
     SuperAdapter(Context context, String[] array){
         super(context, R.layout.myitem, array);
-
+        this.context = context;
     }
-
+    Context context;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -35,7 +35,11 @@ public class SuperAdapter extends ArrayAdapter<String> {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),getItem(pos),Toast.LENGTH_SHORT).show();
+
+                Activity host = (Activity) context;
+                host.finish();
+                Intent intent = new Intent(host, MainActivity.class);
+                host.startActivity(intent);
                 levelId = (pos);
             }
         });

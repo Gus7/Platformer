@@ -2,7 +2,6 @@ package samsung.itschool.nick.platformer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
@@ -14,10 +13,10 @@ import android.graphics.RectF;
 public class Door {
     Bitmap pic;
     float x,y;
-    Door(Float x, Float y, int picResId, Context context){
+    Door(Float x, Float y, Bitmap pic, Context context){
         this.x = x;
         this.y = y;
-        pic = BitmapFactory.decodeResource(context.getResources(), picResId);
+        this.pic = pic;
     }
 
 
