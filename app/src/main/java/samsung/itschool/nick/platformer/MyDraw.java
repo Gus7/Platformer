@@ -21,6 +21,7 @@ import static android.content.ContentValues.TAG;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.height;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.width;
 import static samsung.itschool.nick.platformer.Hero.pos;
+import static samsung.itschool.nick.platformer.MainActivity.fire;
 import static samsung.itschool.nick.platformer.SuperAdapter.levelId;
 
 
@@ -32,6 +33,7 @@ public class MyDraw extends View  {
 
     public static int mDirection;
     public static int turnDirection;
+    public static int side = 0;
     private static final int Up = 1;
     private static final int Down = 2;
     private static final int Right = 3;
@@ -43,11 +45,15 @@ public class MyDraw extends View  {
     void start(Context context)
     {
         int id = levelId+1;
+        thrower = BitmapFactory.decodeResource(context.getResources(), R.drawable.thrower);
+        throwerl = BitmapFactory.decodeResource(context.getResources(), R.drawable.throwerl);
+        herostpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.herost);
         heropic = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero);
         heropicl = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol);
         ladderpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.ladder);
         blockpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.block);
-        mobpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol);
+        mobpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.mob);
+        doorpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.door);
         bulletpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
 
@@ -155,7 +161,7 @@ public class MyDraw extends View  {
             line_ = reader.readLine();
             levs_ = line_.split(";");
             words_ = levs_[id].split(" ");
-            door = new Door(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005, heropic, context);
+            door = new Door(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005, doorpic, context);
 
 
             line_ = reader.readLine();
@@ -244,9 +250,13 @@ public class MyDraw extends View  {
     Bitmap background;
     Bitmap heropic;
     Bitmap heropicl;
+    Bitmap herostpic;
     Bitmap ladderpic;
     Bitmap blockpic;
     Bitmap mobpic;
+    Bitmap doorpic;
+    Bitmap thrower;
+    Bitmap throwerl;
     static Bitmap bulletpic;
     Paint p = new Paint();
 
@@ -257,7 +267,7 @@ public class MyDraw extends View  {
     }
 
 
-    void Physic(){
+    void Physic(float w, float h){
 
         onGround = false;
         onLadder = false;
@@ -271,6 +281,7 @@ public class MyDraw extends View  {
                     && block[i].x2 >= hero.pos.x){
                 onGround = true;
                 hero.toGo.setY(hero.pos.y);
+                //hero.pos.setY(hero.pos.y);
             }
         }
         for (int i = 0; i < ladder.length; i++){
@@ -278,6 +289,21 @@ public class MyDraw extends View  {
                 onLadder = true;
                 //hero.toGo.setY(hero.pos.y);
             }
+        }
+        for (int i = 0; i < mob.length; i++) {
+
+            if (mob[i].y1 - 90 <= hero.pos.y && mob[i].y2 + 90 >= hero.pos.y
+                    && mob[i].x1 - 90  <= hero.pos.x
+                    && mob[i].x2 + 90 >= hero.pos.x){
+                bullet.clear();
+
+                start(getContext());
+            }
+        }
+        if (pos.y > h + 200 || pos.y < 0-200 || pos.x > w + 300 || pos.x < 0 - 300   ){
+            bullet.clear();
+
+            start(getContext());
         }
         if (bullet.size() > 0) {
             for (int i = 0; i < mob.length; i++) {
@@ -305,7 +331,7 @@ public class MyDraw extends View  {
         //Log.i(TAG,canvas.getHeight() + " " + canvas.getWidth() );
 
 
-        Physic();
+        Physic(canvas.getWidth(), canvas.getHeight());
         rectF = new RectF(0,0,canvas.getWidth(),canvas.getHeight());
         canvas.drawBitmap(background, null, rectF , p);
         //canvas.drawColor(Color.GREEN);
@@ -333,15 +359,19 @@ public class MyDraw extends View  {
                 }
             }
         }
-        hero.draw(canvas, heropic);
+
+
         switch (mDirection) {
             case Up: {
+                side = 0;
                 if(onLadder && onGround){
-                    hero.pos.setY(pos.y-50*height/1080);}
+                    //hero.toGo.setY(pos.y-50*height/1080);
+                    hero.pos.setY(pos.y-50*height/1080);
+                }
                 else if(onLadder && !onGround){
                     hero.toGo.setY(pos.y-50*height/1080);
                 }else if (onGround && !onLadder){
-                    hero.pos.setY(pos.y-165*height/1080);
+                    hero.pos.setY(pos.y-175*height/1080);
 
                     //hero.toGo.setY(pos.y-2050);
 
@@ -353,6 +383,7 @@ public class MyDraw extends View  {
             }
 
             case Down: {
+                side = 0;
 
 
 
@@ -381,24 +412,35 @@ public class MyDraw extends View  {
         switch (turnDirection) {
 
             case Right: {
+                side = 3;
                 if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x+100*width/1920);
                 else hero.toGo.setX(pos.x+45*width/1920);
-                hero.draw(canvas, heropic);
+
                 break;
             }
             case Left: {
-
+                side = 4;
                 if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x-100*width/1920);
                 else hero.toGo.setX(pos.x-45*width/1920);
-                hero.draw(canvas, heropicl);
+
                 break;
             }
 
-
-
         }
-
-        Physic();
+        if (fire == 0) {
+            if (side == 4) {
+                hero.draw(canvas, heropicl);
+            } else if (side == 3) {
+                hero.draw(canvas, heropic);
+            } else hero.draw(canvas, herostpic);
+        }else if(fire == -1){
+            fire = 0;
+            hero.draw(canvas, throwerl);
+        }else{
+            fire = 0;
+            hero.draw(canvas, thrower);
+        }
+        Physic(canvas.getWidth(), canvas.getHeight());
 
 
         if (onGround == false && onLadder == false ){
@@ -413,7 +455,7 @@ public class MyDraw extends View  {
         hero.move(canvas);
         door.draw(canvas);
 
-        if (door.x - 90 <= pos.x && door.x + 180 >= pos.x && door.y - 90 <= pos.y && door.y + 180 >= pos.y){
+        if (door.x <= pos.x && door.x + doorpic.getWidth() >= pos.x && door.y <= pos.y && door.y + doorpic.getHeight() >= pos.y){
 
 
 

@@ -14,7 +14,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import static samsung.itschool.nick.platformer.Hero.pos;
 import static samsung.itschool.nick.platformer.MyDraw.bullet;
 import static samsung.itschool.nick.platformer.MyDraw.bulletpic;
-import static samsung.itschool.nick.platformer.MyDraw.turnDirection;
+import static samsung.itschool.nick.platformer.MyDraw.side;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
@@ -85,10 +85,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
-
+    static int fire = 0;
     @Override
     public void onClick(View v) {
-        if (turnDirection == 4) bullet.add(new Bullet(pos.x, pos.y, -1, bulletpic));
-        else bullet.add(new Bullet(pos.x, pos.y, 1, bulletpic));
+
+        if (side == 4){
+            fire = -1;
+            bullet.add(new Bullet(pos.x, pos.y, -1, bulletpic));
+        }
+        else {
+            fire = 1;
+            bullet.add(new Bullet(pos.x, pos.y, 1, bulletpic));
+        }
+
     }
 }

@@ -37,4 +37,5 @@ public class MusicService extends Service {
         Toast.makeText(this, "My Service Started", Toast.LENGTH_LONG).show();
         player.start();
     }
+
 }
