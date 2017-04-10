@@ -29,7 +29,7 @@ public class Hero {
     static Vector pos;
 
     Float size;
-    Bitmap pic;
+    
 /*
     Hero(Context context, int picResId){
         pos = new Vector(0,0);
@@ -42,7 +42,7 @@ public class Hero {
         this.size = size;
 
 
-
+/*
         try {
             AssetManager assetManager = context.getAssets();
             InputStreamReader istream = new InputStreamReader(assetManager.open("a.txt"));
@@ -58,7 +58,7 @@ public class Hero {
         } catch (IOException e) {
             e.printStackTrace();
             Log.i(TAG,"--------------------------------------------------");
-        }
+        }*/
 
     }
 

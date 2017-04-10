@@ -13,8 +13,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        String[] numbers = new String[3];
-        for (int i = 0; i < 3; i++){
+        String[] numbers = new String[5];
+        for (int i = 0; i < 5; i++){
             numbers[i] = (int)(i+1) + "";
         }
 

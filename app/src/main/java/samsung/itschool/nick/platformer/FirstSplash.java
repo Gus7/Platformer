@@ -14,7 +14,7 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_splash);
 
-        //startService(new Intent(this, MusicService.class));
+        startService(new Intent(this, MusicService.class));
         Button b = (Button) findViewById(R.id.button);
         Button men = (Button) findViewById(R.id.butMenu);
         Button set = (Button) findViewById(R.id.settings);
@@ -28,7 +28,7 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
         super.onBackPressed();
         stopService(new Intent(this, MusicService.class));
     }
-/*
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -39,7 +39,7 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, MusicService.class));
-    }*/
+    }
 
     @Override
     public void onClick(View v) {
