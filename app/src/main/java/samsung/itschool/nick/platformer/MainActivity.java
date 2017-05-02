@@ -3,8 +3,10 @@ package samsung.itschool.nick.platformer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -22,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    static TextView mobs;
+    static TextView rubies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +36,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button Right = (Button) findViewById(R.id.right);
         Button Fire = (Button) findViewById(R.id.fire);
 
+        mobs = (TextView) findViewById(R.id.mobs);
+        rubies = (TextView) findViewById(R.id.rubies);
+
         Up.setOnTouchListener(new UpListener());
         Down.setOnTouchListener(new DownListener());
         Left.setOnTouchListener(new LeftListener());
         Right.setOnTouchListener(new RightListener());
         Fire.setOnClickListener((View.OnClickListener) this);
+
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

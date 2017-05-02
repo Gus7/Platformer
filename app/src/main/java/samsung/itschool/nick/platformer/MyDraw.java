@@ -23,7 +23,8 @@ import static samsung.itschool.nick.platformer.FirstSplashDraw.width;
 import static samsung.itschool.nick.platformer.Hero.pos;
 import static samsung.itschool.nick.platformer.MainActivity.fire;
 import static samsung.itschool.nick.platformer.SuperAdapter.levelId;
-
+import static samsung.itschool.nick.platformer.MainActivity.mobs;
+import static samsung.itschool.nick.platformer.MainActivity.rubies;
 
 /**
  * Created by User on 29.12.2016.
@@ -45,6 +46,7 @@ public class MyDraw extends View  {
     void start(Context context)
     {
         int id = levelId+1;
+        rubypic = BitmapFactory.decodeResource(context.getResources(), R.drawable.door);
         thrower = BitmapFactory.decodeResource(context.getResources(), R.drawable.thrower);
         throwerl = BitmapFactory.decodeResource(context.getResources(), R.drawable.throwerl);
         herostpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.herost);
@@ -56,7 +58,7 @@ public class MyDraw extends View  {
         doorpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.door);
         bulletpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
-
+        side = 0;
         try {
             /*
 
@@ -76,11 +78,14 @@ public class MyDraw extends View  {
 
 
 
+
+
+
             String line_ = reader.readLine();
             line_ = reader.readLine();
-            line_ = reader.readLine();
             String[] levs_ = line_.split(";");
-            String[] words_ = levs_[id].split(" ");
+            String[] words_ = levs_[1].split(" ");
+
             String Name = words_[1];
 
             line_ = reader.readLine();
@@ -88,6 +93,11 @@ public class MyDraw extends View  {
             words_ = levs_[id].split(" ");
             hero = new Hero(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005, 1, context);
             //hero.pos.set(200.1f,400f);
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            hero.toGo = new Vector(1,1);
+            hero.toGo.set(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005);
 
 
             line_ = reader.readLine();
@@ -199,7 +209,33 @@ public class MyDraw extends View  {
             words_ = levs_[id].split(" ");
             String[] mobSPX = words_;
 
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            int N_Rub = 1;
+            N_Rub = Integer.parseInt(words_[1]);
+            //int N_Blo = Integer.parseInt(words_[1]);
+            ruby = new Ruby[N_Rub];
+
+            //Log.i(TAG, N_Blo + " ++++++++++++++++++++++++++++++");
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] rubyX = words_;
+
+            line_ = reader.readLine();
+            levs_ = line_.split(";");
+            words_ = levs_[id].split(" ");
+            String[] rubyY = words_;
+
+
+
             reader.close();
+            for(int i = 0; i < ruby.length; i++){
+                ruby[i] = new Ruby(Float.parseFloat(rubyX[2*i+1])*width/1920,Float.parseFloat(rubyY[2*i+1])*height/1005,
+                        rubypic);
+            }
 
             for(int i = 0; i < ladder.length; i++){
                 ladder[i] = new Ladder(Float.parseFloat(ladderX1[2*i+1])*width/1920,Float.parseFloat(ladderY1[2*i+1])*height/1005,Float.parseFloat(ladderX2[2*i+1])*width/1920,Float.parseFloat(ladderY2[2*i+1])*height/1005,
@@ -245,8 +281,9 @@ public class MyDraw extends View  {
     Block[] block;
     Ladder[] ladder;
     Mob[] mob;
+    Ruby[] ruby;
     static ArrayList<Bullet> bullet = new ArrayList<>();
-
+    Bitmap rubypic;
     Bitmap background;
     Bitmap heropic;
     Bitmap heropicl;
@@ -312,15 +349,26 @@ public class MyDraw extends View  {
                         mob[i].isalife = false;
                         bullet.get(j).isalife = false;
                         //hero.toGo.setY(hero.pos.y);
+                        MainActivity.rubies.setText("Mobs: " + mobs);
                     }
                 }
             }
+        }
+
+        for (int i =0 ; i < ruby.length; i++){
+                if (ruby[i].x <= pos.x && ruby[i].x + rubypic.getWidth() >= pos.x && ruby[i].y <= pos.y && ruby[i].y + rubypic.getHeight() >= pos.y){
+                    ruby[i].x = 10000;
+                    rubies += 1;
+                    MainActivity.rubies.setText("Rubies: " + rubies);
+                }
         }
 
 
 
 
     }
+    int mobs = 0;
+    int rubies = 0;
     boolean onLadder;
     boolean onGround;
 /* Поменять всеееее при вводе карты!!!!!!!!!!!!!!!!!*/
@@ -341,6 +389,7 @@ public class MyDraw extends View  {
         for (int i = 0; i < ladder.length; i++){
             ladder[i].draw(canvas, ladderpic);
         }
+
 
         for (int i = 0; i < mob.length; i++){
             if(mob[i].isalife){
@@ -363,7 +412,7 @@ public class MyDraw extends View  {
 
         switch (mDirection) {
             case Up: {
-                side = 0;
+
                 if(onLadder && onGround){
                     //hero.toGo.setY(pos.y-50*height/1080);
                     hero.pos.setY(pos.y-50*height/1080);
@@ -383,7 +432,7 @@ public class MyDraw extends View  {
             }
 
             case Down: {
-                side = 0;
+                
 
 
 
@@ -427,6 +476,10 @@ public class MyDraw extends View  {
             }
 
         }
+        door.draw(canvas);
+        for (int i = 0; i < ruby.length; i++){
+            ruby[i].draw(canvas);
+        }
         if (fire == 0) {
             if (side == 4) {
                 hero.draw(canvas, heropicl);
@@ -453,7 +506,7 @@ public class MyDraw extends View  {
 
 
         hero.move(canvas);
-        door.draw(canvas);
+
 
         if (door.x <= pos.x && door.x + doorpic.getWidth() >= pos.x && door.y <= pos.y && door.y + doorpic.getHeight() >= pos.y){
 
@@ -464,6 +517,7 @@ public class MyDraw extends View  {
             start(getContext());
 
         }
+
 
 
 
