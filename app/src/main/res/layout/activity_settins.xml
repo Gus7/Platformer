@@ -29,14 +29,5 @@
             android:text="Stop"
             android:onClick="stop"/>
     </LinearLayout>
-    <SeekBar
-        android:id="@+id/volumeControl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"/>
-    <SeekBar
-        android:id="@+id/progressControl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"/>
+
 </LinearLayout>

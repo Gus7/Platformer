@@ -4,24 +4,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import static samsung.itschool.nick.platformer.FirstSplash.mPlayer;
 import static samsung.itschool.nick.platformer.FirstSplash.playing;
 
-
-public class MenuActivity extends AppCompatActivity {
-
+public class StatActivity extends AppCompatActivity {
+    private DBManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_stat);
 
-        String[] numbers = new String[5];
-        for (int i = 0; i < 5; i++){
-            numbers[i] = (int)(i+1) + "";
-        }
+        dbManager = DBManager.getInstance(this);
 
-        ListView lv = (ListView) findViewById(R.id.listView);
-        lv.setAdapter(new SuperAdapter(this, numbers));
+        ListView resList = (ListView) this.findViewById(R.id.results);
+        ArrayList<Result> results = dbManager.getAllResults();
+        ResultAdapter adapter = new ResultAdapter(this,results);
+        resList.setAdapter(adapter);
     }
     @Override
     protected void onStop() {
@@ -29,7 +29,6 @@ public class MenuActivity extends AppCompatActivity {
         if (mPlayer.isPlaying()) {
             mPlayer.pause();
         }
-
     }
     @Override
     protected void onStart() {

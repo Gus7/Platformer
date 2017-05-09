@@ -3,7 +3,6 @@ package samsung.itschool.nick.platformer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,10 +12,13 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import static samsung.itschool.nick.platformer.FirstSplash.mPlayer;
+import static samsung.itschool.nick.platformer.FirstSplash.playing;
 import static samsung.itschool.nick.platformer.Hero.pos;
 import static samsung.itschool.nick.platformer.MyDraw.bullet;
 import static samsung.itschool.nick.platformer.MyDraw.bulletpic;
 import static samsung.itschool.nick.platformer.MyDraw.side;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
@@ -26,10 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleApiClient client;
     static TextView mobs;
     static TextView rubies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         Button Up = (Button) findViewById(R.id.up);
         Button Down = (Button) findViewById(R.id.down);
         Button Left = (Button) findViewById(R.id.left);
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mobs = (TextView) findViewById(R.id.mobs);
         rubies = (TextView) findViewById(R.id.rubies);
+
 
         Up.setOnTouchListener(new UpListener());
         Down.setOnTouchListener(new DownListener());
@@ -77,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
-
+        if (playing) {
+            mPlayer.start();
+        }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -88,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStop() {
         super.onStop();
 
+        if (mPlayer.isPlaying()) {
+            mPlayer.pause();
+        }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());

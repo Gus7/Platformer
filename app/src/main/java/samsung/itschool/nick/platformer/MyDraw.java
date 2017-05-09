@@ -18,13 +18,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+import static samsung.itschool.nick.platformer.DBManager.dbManager;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.height;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.width;
 import static samsung.itschool.nick.platformer.Hero.pos;
 import static samsung.itschool.nick.platformer.MainActivity.fire;
 import static samsung.itschool.nick.platformer.SuperAdapter.levelId;
-import static samsung.itschool.nick.platformer.MainActivity.mobs;
-import static samsung.itschool.nick.platformer.MainActivity.rubies;
 
 /**
  * Created by User on 29.12.2016.
@@ -46,7 +45,7 @@ public class MyDraw extends View  {
     void start(Context context)
     {
         int id = levelId+1;
-        rubypic = BitmapFactory.decodeResource(context.getResources(), R.drawable.door);
+        rubypic = BitmapFactory.decodeResource(context.getResources(), R.drawable.ruby);
         thrower = BitmapFactory.decodeResource(context.getResources(), R.drawable.thrower);
         throwerl = BitmapFactory.decodeResource(context.getResources(), R.drawable.throwerl);
         herostpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.herost);
@@ -253,6 +252,7 @@ public class MyDraw extends View  {
                         Float.parseFloat(mobSPX[2*i+1])*width/1920, mobpic);
             }
 
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.i(TAG,"///////////////////////////////////////////////////");
@@ -333,12 +333,24 @@ public class MyDraw extends View  {
                     && mob[i].x1 - 90  <= hero.pos.x
                     && mob[i].x2 + 90 >= hero.pos.x){
                 bullet.clear();
-
+                dbManager.addResult(levelId+1,
+                        rubies, (int) mobs);
+                mobs = 0;
+                rubies = 0;
+                MainActivity.rubies.setText("Rubies: " + rubies);
+                MainActivity.mobs.setText("Mobs: " + (int)(mobs));
                 start(getContext());
+
             }
         }
         if (pos.y > h + 200 || pos.y < 0-200 || pos.x > w + 300 || pos.x < 0 - 300   ){
             bullet.clear();
+            dbManager.addResult(levelId+1,
+                    rubies, (int) mobs);
+            mobs = 0;
+            rubies = 0;
+            MainActivity.rubies.setText("Rubies: " + rubies);
+            MainActivity.mobs.setText("Mobs: " + (int)(mobs));
 
             start(getContext());
         }
@@ -348,8 +360,9 @@ public class MyDraw extends View  {
                     if (mob[i].y1 <= bullet.get(j).y & mob[i].y2 >= bullet.get(j).y & mob[i].x1 <= bullet.get(j).x + bulletpic.getWidth() & mob[i].x2 >= bullet.get(j).x) {
                         mob[i].isalife = false;
                         bullet.get(j).isalife = false;
+                        mobs += 0.5;
                         //hero.toGo.setY(hero.pos.y);
-                        MainActivity.rubies.setText("Mobs: " + mobs);
+                        MainActivity.mobs.setText("Mobs: " + (int)(mobs));
                     }
                 }
             }
@@ -367,7 +380,7 @@ public class MyDraw extends View  {
 
 
     }
-    int mobs = 0;
+    float mobs = 0;
     int rubies = 0;
     boolean onLadder;
     boolean onGround;
@@ -420,7 +433,7 @@ public class MyDraw extends View  {
                 else if(onLadder && !onGround){
                     hero.toGo.setY(pos.y-50*height/1080);
                 }else if (onGround && !onLadder){
-                    hero.pos.setY(pos.y-175*height/1080);
+                    hero.pos.setY(pos.y-170*height/1080);
 
                     //hero.toGo.setY(pos.y-2050);
 
@@ -463,14 +476,16 @@ public class MyDraw extends View  {
             case Right: {
                 side = 3;
                 if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x+100*width/1920);
-                else hero.toGo.setX(pos.x+45*width/1920);
+                else if(onLadder == true)hero.toGo.setX(pos.x+20*width/1920);
+                else hero.toGo.setX(pos.x+70*width/1920);
 
                 break;
             }
             case Left: {
                 side = 4;
                 if (onGround == false && onLadder == false ) hero.toGo.setX(pos.x-100*width/1920);
-                else hero.toGo.setX(pos.x-45*width/1920);
+                else if(onLadder == true)hero.toGo.setX(pos.x-20*width/1920);
+                else hero.toGo.setX(pos.x-70*width/1920);
 
                 break;
             }
@@ -514,8 +529,10 @@ public class MyDraw extends View  {
 
             bullet.clear();
             levelId += 1;
+            if (levelId==5)dbManager.addResult(levelId + 1,
+                    rubies, (int) mobs);
             start(getContext());
-
+            
         }
 
 

@@ -1,26 +1,25 @@
 package samsung.itschool.nick.platformer;
 
-import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
-public class SettinsActivity extends AppCompatActivity {
+import static samsung.itschool.nick.platformer.FirstSplash.playing;
+
+
+
+
+class SettingsActivity extends AppCompatActivity {
 
     MediaPlayer mPlayer;
     Button startButton, pauseButton, stopButton;
-    SeekBar volumeControl;
-    AudioManager audioManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settins);
 
         mPlayer=MediaPlayer.create(this, R.raw.bg);
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -32,28 +31,6 @@ public class SettinsActivity extends AppCompatActivity {
         startButton = (Button) findViewById(R.id.start);
         pauseButton = (Button) findViewById(R.id.pause);
         stopButton = (Button) findViewById(R.id.stop);
-
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        int curValue = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-        volumeControl = (SeekBar) findViewById(R.id.volumeControl);
-        volumeControl.setMax(maxVolume);
-        volumeControl.setProgress(curValue);
-        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
         pauseButton.setEnabled(false);
         stopButton.setEnabled(false);
@@ -80,7 +57,7 @@ public class SettinsActivity extends AppCompatActivity {
         stopButton.setEnabled(true);
     }
     public void pause(View view){
-
+        playing = false;
         mPlayer.pause();
         startButton.setEnabled(true);
         pauseButton.setEnabled(false);
@@ -90,10 +67,18 @@ public class SettinsActivity extends AppCompatActivity {
         stopPlay();
     }
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         if (mPlayer.isPlaying()) {
-            stopPlay();
+            mPlayer.pause();
+        }
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (playing) {
+            mPlayer.start();
         }
     }
 }
