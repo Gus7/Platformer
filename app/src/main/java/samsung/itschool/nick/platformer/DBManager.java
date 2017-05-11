@@ -26,7 +26,7 @@ public class DBManager {
         return dbManager;
     }
 
-    private DBManager(Context context) {
+    DBManager(Context context) {
         this.context = context;
         db = context.openOrCreateDatabase(DB_NAME, Context.MODE_PRIVATE, null);
         createTablesIfNeedBe();
@@ -35,6 +35,7 @@ public class DBManager {
     void addResult(int level, int ruby, int mob) {
         db.execSQL("INSERT INTO RESULTS VALUES (" + level + ", " + ruby
                 + ", " + mob + ");");
+
     }
 
     ArrayList<Result> getAllResults() {

@@ -1,21 +1,12 @@
 package samsung.itschool.nick.platformer;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
-import static android.content.ContentValues.TAG;
-import static samsung.itschool.nick.platformer.FirstSplashDraw.height;
-import static samsung.itschool.nick.platformer.FirstSplashDraw.width;
 
 
 
@@ -32,7 +23,7 @@ public class Hero {
     
 /*
     Hero(Context context, int picResId){
-        pos = new Vector(0,0);
+        pos = sp Vector(0,0);
         size = 1f;
         pic = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero);
     }*/
@@ -45,12 +36,12 @@ public class Hero {
 /*
         try {
             AssetManager assetManager = context.getAssets();
-            InputStreamReader istream = new InputStreamReader(assetManager.open("a.txt"));
-            BufferedReader reader = new BufferedReader(istream);
+            InputStreamReader istream = sp InputStreamReader(assetManager.open("a.txt"));
+            BufferedReader reader = sp BufferedReader(istream);
             String line_ = reader.readLine();
             String[] levs_ = line_.split(";");
             String[] words_ = levs_[1].split(" ");
-            toGo = new Vector(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005);
+            toGo = sp Vector(Float.parseFloat(words_[1])*width/1920, Float.parseFloat(words_[2])*height/1005);
             reader.close();
         }catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -67,8 +58,8 @@ public class Hero {
     void draw(Canvas canvas, Bitmap pic) {
 
         float k = ((float) pic.getHeight() / pic.getWidth());
-        RectF rect = new RectF(pos.x - pic.getWidth() * 0.5f, pos.y - pic.getHeight() * 0.5f,
-                pos.x + size + 50, pos.y + size * k + 100);
+        RectF rect = new RectF(pos.x - pic.getWidth() * 0.15f * canvas.getWidth()/1080, pos.y - pic.getHeight() * 0.15f,
+                pos.x +  pic.getWidth()*.15f* canvas.getWidth()/1080, pos.y + pic.getHeight()*0.15f * canvas.getWidth()/1080);
 
         canvas.drawBitmap(pic, null, rect, paint);
 

@@ -7,8 +7,10 @@ android:orientation="horizontal"
 
     <Button
         android:text="Right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="25dp"
+
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -19,8 +21,10 @@ android:orientation="horizontal"
 
     <Button
         android:text="Left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="25dp"
+
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:id="@+id/left"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/right"
@@ -31,8 +35,10 @@ android:orientation="horizontal"
 
     <Button
         android:text="Up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="25dp"
+
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:color="#66FF6700"
         android:alpha="0.50"
         android:id="@+id/up"
@@ -42,8 +48,10 @@ android:orientation="horizontal"
 
     <Button
         android:text="Down"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="25dp"
+
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:id="@+id/down"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -52,20 +60,12 @@ android:orientation="horizontal"
         android:alpha="0.50"
         />
 
-    <samsung.itschool.nick.platformer.MyDraw
-
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/view2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <Button
         android:text="FIRE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="25dp"
+
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:id="@+id/fire"
         android:color="#66FF6700"
         android:alpha="0.50"
@@ -73,10 +73,25 @@ android:orientation="horizontal"
 
         android:layout_above="@+id/up"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:elevation="0dp"
+        style="@android:style/Widget.Button" />
 
+
+
+    <samsung.itschool.nick.platformer.MyDraw
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <TextView
         android:text="Mobs: 0"
+        android:textSize="24dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -86,6 +101,8 @@ android:orientation="horizontal"
 
     <TextView
         android:text="Rubies: 0"
+        android:textSize="24dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mobs"
@@ -93,7 +110,6 @@ android:orientation="horizontal"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
         android:id="@+id/rubies" />
-
 
 
 </RelativeLayout>

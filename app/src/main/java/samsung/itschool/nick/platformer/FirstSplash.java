@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class FirstSplash extends AppCompatActivity implements View.OnClickListener {
     static MediaPlayer mPlayer;
     static Boolean playing = false;
+    DBManager dbManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +24,8 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
                 stopPlay();
             }
         });
-
-        //startService(new Intent(this, MusicService.class));
+        dbManager = DBManager.getInstance(this);
+        //startService(sp Intent(this, MusicService.class));
         Button b = (Button) findViewById(R.id.button);
         Button men = (Button) findViewById(R.id.butMenu);
         //Button set = (Button) findViewById(R.id.settings);
@@ -37,14 +38,14 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        stopService(new Intent(this, MusicService.class));
+        stopService(sp Intent(this, MusicService.class));
 
     }/*
 /*
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        stopService(new Intent(this, MusicService.class));
+        stopService(sp Intent(this, MusicService.class));
     }
     @Override
     protected void onDestroy() {
@@ -57,7 +58,7 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
     }
 */
     private void stopPlay(){
-        //stopService(new Intent(this, MusicService.class));
+        //stopService(sp Intent(this, MusicService.class));
         mPlayer.stop();
         playing = false;
 
@@ -100,7 +101,7 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             /*case R.id.settings:
-                intent = new Intent(FirstSplash.this, SettinsActivity.class);
+                intent = sp Intent(FirstSplash.this, SettinsActivity.class);
                 startActivity(intent);
                 break;
 
