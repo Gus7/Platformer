@@ -53,6 +53,10 @@ public class MyDraw extends View  {
         heropicl = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol);
         heropic2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero2);
         heropicl2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.herol2);
+        heropic3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero3);
+        heropicl3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero3l);
+        heropic4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero4);
+        heropicl4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hero4l);
         ladderpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.ladder);
         blockpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.block);
         mobpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.mob);
@@ -188,7 +192,7 @@ public class MyDraw extends View  {
             int N_Mob = 1;
             N_Mob = Integer.parseInt(words_[1]);
             //int N_Blo = Integer.parseInt(words_[1]);
-            mob = new Mob[N_Mob];
+            mob = new Moby[N_Mob];
 
             //Log.i(TAG, N_Blo + " ++++++++++++++++++++++++++++++");
 
@@ -268,7 +272,7 @@ public class MyDraw extends View  {
             }
 
             for(int i = 0; i < mob.length; i++){
-                mob[i] = new Mob(Float.parseFloat(mobX1[2*i+1])*width/1920,Float.parseFloat(mobY1[2*i+1])*height/1005,Float.parseFloat(mobX2[2*i+1])*width/1920,Float.parseFloat(mobY2[2*i+1])*height/1005,
+                mob[i] = new Moby(Float.parseFloat(mobX1[2*i+1])*width/1920,Float.parseFloat(mobY1[2*i+1])*height/1005,Float.parseFloat(mobX2[2*i+1])*width/1920,Float.parseFloat(mobY2[2*i+1])*height/1005,
                         Float.parseFloat(mobSPX[2*i+1])*width/1920, mobpic);
             }
 
@@ -300,7 +304,7 @@ public class MyDraw extends View  {
     Door door;
     Block[] block;
     Ladder[] ladder;
-    Mob[] mob;
+    Moby[] mob;
     Ruby[] ruby;
     static ArrayList<Bullet> bullet = new ArrayList<>();
     Bitmap rubypic;
@@ -322,6 +326,10 @@ public class MyDraw extends View  {
     Bitmap th2;
     Bitmap th3l;
     Bitmap th2l;
+    Bitmap heropic3;
+    Bitmap heropicl3;
+    Bitmap heropic4;
+    Bitmap heropicl4;
     static Bitmap bulletpic;
     Paint p = new Paint();
 
@@ -341,9 +349,9 @@ public class MyDraw extends View  {
 
         for (int i = 0; i < block.length; i++) {
 
-            if (block[i].y1 + 10*width/1080  <= pos.y + heropic.getHeight()*0.15f * width/1080 && block[i].y1 + 40 >= pos.y + heropic.getHeight()*0.15f * width/1080
-                    && block[i].x1-20*width/1080 <= hero.pos.x
-                    && block[i].x2+20*width/1080 >= hero.pos.x){
+            if (block[i].y1 - 80*width/1080  <= pos.y  && block[i].y1 -60*width/1080 >= pos.y
+                    && block[i].x1-20*width/1920 <= hero.pos.x
+                    && block[i].x2+20*width/1920 >= hero.pos.x){
                 onGround = true;
                 hero.toGo.setY(hero.pos.y);
                 //hero.pos.setY(hero.pos.y);
@@ -408,7 +416,7 @@ public class MyDraw extends View  {
         }
 
         for (int i =0 ; i < ruby.length; i++){
-                if (ruby[i].x1 <= pos.x && ruby[i].x1 + rubypic.getWidth() >= pos.x && ruby[i].y1-40 <= pos.y && ruby[i].y1+40 + rubypic.getHeight() >= pos.y){
+                if (ruby[i].x1 <= pos.x && ruby[i].x2 >= pos.x && ruby[i].y1-40 <= pos.y && ruby[i].y1+40 + rubypic.getHeight() >= pos.y){
                     ruby[i].x1 = 10000;
                     rubies += 1;
                     MainActivity.rubies.setText("Rubies: " + rubies);
@@ -552,22 +560,37 @@ public class MyDraw extends View  {
         }*/
         if (fire == 0&& onGround ) {
             if (side == 4&& turnDirection != 0 ) {
-                if (numstep == 4 || numstep == 5 || numstep == 6 || numstep == 7&& onGround){
+                if (numstep == 14 || numstep == 15 || numstep == 13 || numstep ==12 && onGround){
+                    hero.draw(canvas, heropicl4);
+                    numstep += 1;
+                    if (numstep == 16) numstep = 0;}
+                else if (numstep == 8 || numstep == 9||numstep == 10 || numstep == 11 && turnDirection != 0){
+                    numstep += 1;
+                    hero.draw(canvas, heropicl3);}
+                else if (numstep == 4 || numstep == 5 || numstep == 6 || numstep == 7 && onGround){
                     hero.draw(canvas, heropicl2);
                     numstep += 1;
-                    if (numstep == 8) numstep = 0;}
+                }
                 else if (numstep == 2 || numstep == 3||numstep == 1 || numstep == 0 && turnDirection != 0){
-                        numstep += 1;
-                        hero.draw(canvas, heropicl);}
+                    numstep += 1;
+                    hero.draw(canvas, heropicl);}
 
             } else if (side == 3&& turnDirection != 0) {
-                if (numstep == 4 || numstep == 5 || numstep == 6 || numstep == 7 && onGround){
-                        hero.draw(canvas, heropic2);
+                if (numstep == 14 || numstep == 15 || numstep == 13 || numstep ==12 && onGround){
+                        hero.draw(canvas, heropic4);
                         numstep += 1;
-                    if (numstep == 8) numstep = 0;}
-                else if (numstep == 2 || numstep == 3||numstep == 1 || numstep == 0 && turnDirection != 0){
+                    if (numstep == 16) numstep = 0;}
+                else if (numstep == 8 || numstep == 9||numstep == 10 || numstep == 11 && turnDirection != 0){
                             numstep += 1;
-                            hero.draw(canvas, heropic);}
+                            hero.draw(canvas, heropic3);}
+                else if (numstep == 4 || numstep == 5 || numstep == 6 || numstep == 7 && onGround){
+                    hero.draw(canvas, heropic2);
+                    numstep += 1;
+                    }
+                else if (numstep == 2 || numstep == 3||numstep == 1 || numstep == 0 && turnDirection != 0){
+                    numstep += 1;
+                    hero.draw(canvas, heropic);}
+
 
             }else if(turnDirection == 0&& fire == 0){
                 if(side == 4) hero.draw(canvas, heropicl);
@@ -586,39 +609,39 @@ public class MyDraw extends View  {
             }else hero.draw(canvas, heropla);
         }
         else if (!onLadder && !onGround && fire ==0){
-            if(side == 4) hero.draw(canvas, heropicl);
-            else if(side == 3) hero.draw(canvas, heropic);
+            if(side == 4) hero.draw(canvas, heropicl3);
+            else if(side == 3) hero.draw(canvas, heropic3);
             else hero.draw(canvas, herostpic);
         }
         else if(fire == -1){
-            if (numfire == 6 || numfire== 7 || numfire== 8 ) {
+            if (  numfire== 9 ||numfire== 12|| numfire== 10|| numfire== 11 ) {
                 hero.draw(canvas, th3l);
                 numfire += 1;
-                if (numfire== 9){
+                if (numfire== 13){
                     numfire = 0;
                     fire = 0;
                 }
-            } else if (numfire == 5 || numfire== 3 || numfire== 4) {
+            } else if (numfire == 5  || numfire== 4||numfire == 6 ||numfire== 7|| numfire== 8) {
                 numfire += 1;
                 hero.draw(canvas, th2l);
-            }else if (numfire == 2 || numfire== 1 || numfire== 0) {
+            }else if (numfire == 2 || numfire== 1 || numfire== 0|| numfire== 3) {
                 numfire += 1;
                 hero.draw(canvas, throwerl);
             }
 
 
         }else if (fire == 1){
-            if (numfire == 6 || numfire== 7 || numfire== 8 ) {
+            if (  numfire== 9 ||numfire== 12|| numfire== 10|| numfire== 11 ) {
                 hero.draw(canvas, th3);
                 numfire += 1;
-                if (numfire== 9){
+                if (numfire== 13){
                     numfire = 0;
                     fire = 0;
                 }
-            } else if (numfire == 5 || numfire== 3 || numfire== 4) {
+            } else if (numfire == 5  || numfire== 4||numfire == 6 ||numfire== 7|| numfire== 8) {
                 numfire += 1;
                 hero.draw(canvas, th2);
-            }else if (numfire == 2 || numfire== 1 || numfire== 0) {
+            }else if (numfire == 2 || numfire== 1 || numfire== 0|| numfire== 3) {
                 numfire += 1;
                 hero.draw(canvas, thrower);
             }
@@ -645,8 +668,9 @@ public class MyDraw extends View  {
             bullet.clear();
             levelId += 1;
             if (levelId==5)try{
-                dbManager.addResult(levelId+1,
-                        rubies, (int) mobs);
+                levelId = 0;
+                //dbManager.addResult(levelId,
+                 //       rubies, (int) mobs);
             }catch (NullPointerException e) {
                 e.printStackTrace();
 

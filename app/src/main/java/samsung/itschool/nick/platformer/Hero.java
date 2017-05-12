@@ -57,9 +57,10 @@ public class Hero {
 
     void draw(Canvas canvas, Bitmap pic) {
 
-        float k = ((float) pic.getHeight() / pic.getWidth());
-        RectF rect = new RectF(pos.x - pic.getWidth() * 0.15f * canvas.getWidth()/1080, pos.y - pic.getHeight() * 0.15f,
-                pos.x +  pic.getWidth()*.15f* canvas.getWidth()/1080, pos.y + pic.getHeight()*0.15f * canvas.getWidth()/1080);
+        float k = ((float) pic.getHeight()/pic.getWidth());
+
+        RectF rect = new RectF(pos.x - (canvas.getWidth()/12)/k, pos.y - canvas.getWidth()/12,
+                pos.x +  (canvas.getWidth()/12)/k, pos.y + canvas.getWidth()/12);
 
         canvas.drawBitmap(pic, null, rect, paint);
 

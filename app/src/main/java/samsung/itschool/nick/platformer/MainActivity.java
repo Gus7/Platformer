@@ -12,8 +12,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import static samsung.itschool.nick.platformer.FirstSplash.mPlayer;
-import static samsung.itschool.nick.platformer.FirstSplash.playing;
+import static samsung.itschool.nick.platformer.FirstSplashDraw.height;
+import static samsung.itschool.nick.platformer.FirstSplashDraw.width;
 import static samsung.itschool.nick.platformer.Hero.pos;
 import static samsung.itschool.nick.platformer.MyDraw.bullet;
 import static samsung.itschool.nick.platformer.MyDraw.bulletpic;
@@ -83,9 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
-        if (playing) {
-            mPlayer.start();
-        }
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -96,9 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStop() {
         super.onStop();
 
-        if (mPlayer.isPlaying()) {
-            mPlayer.pause();
-        }
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
@@ -110,11 +106,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (side == 4){
             fire = -1;
-            bullet.add(new Bullet(pos.x, pos.y, -1, bulletpic));
+            bullet.add(new Bullet(pos.x-20*width/1920, pos.y-50*height/1080, -1, bulletpic));
         }
         else {
             fire = 1;
-            bullet.add(new Bullet(pos.x, pos.y, 1, bulletpic));
+            bullet.add(new Bullet(pos.x+40*width/1920, pos.y-50*height/1080, 1, bulletpic));
         }
 
     }

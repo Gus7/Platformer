@@ -33,7 +33,7 @@ public class Bullet
     /**Перемещение объекта, его направление*/
     public void move(Canvas canvas) {
         if (x < canvas.getWidth()+200 & x > -200) {
-            x += 45 * side;        //движение по Х со скоростью mSpeed и углу заданном координатой angle
+            x += 45 * side *canvas.getWidth()/1920;        //движение по Х со скоростью mSpeed и углу заданном координатой angle
         }else {
             isalife = false;
         }

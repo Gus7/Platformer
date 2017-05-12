@@ -5,6 +5,41 @@ android:layout_height="match_parent"
 android:orientation="horizontal"
     >
 
+
+
+
+
+    <samsung.itschool.nick.platformer.MyDraw
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:text="Mobs: 0"
+        android:textSize="24dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/mobs" />
+
+    <TextView
+        android:text="Rubies: 0"
+        android:textSize="24dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mobs"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rubies" />
     <Button
         android:text="Right"
         android:textSize="25dp"
@@ -76,40 +111,6 @@ android:orientation="horizontal"
         android:layout_alignParentEnd="true"
         android:elevation="0dp"
         style="@android:style/Widget.Button" />
-
-
-
-    <samsung.itschool.nick.platformer.MyDraw
-
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/view2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:text="Mobs: 0"
-        android:textSize="24dp"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/mobs" />
-
-    <TextView
-        android:text="Rubies: 0"
-        android:textSize="24dp"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mobs"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:id="@+id/rubies" />
 
 
 </RelativeLayout>

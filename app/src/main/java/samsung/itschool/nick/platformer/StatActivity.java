@@ -7,9 +7,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static samsung.itschool.nick.platformer.FirstSplash.mPlayer;
-import static samsung.itschool.nick.platformer.FirstSplash.playing;
-
 public class StatActivity extends AppCompatActivity {
     private DBManager dbManager;
     @Override
@@ -25,18 +22,5 @@ public class StatActivity extends AppCompatActivity {
         ResultAdapter adapter = new ResultAdapter(this,results);
         resList.setAdapter(adapter);
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mPlayer.isPlaying()) {
-            mPlayer.pause();
-        }
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (playing) {
-            mPlayer.start();
-        }
-    }
+
 }

@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-import static samsung.itschool.nick.platformer.FirstSplash.mPlayer;
-import static samsung.itschool.nick.platformer.FirstSplash.playing;
-
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -23,19 +20,5 @@ public class MenuActivity extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(new SuperAdapter(this, numbers));
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mPlayer.isPlaying()) {
-            mPlayer.pause();
-        }
 
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (playing) {
-            mPlayer.start();
-        }
-    }
 }
