@@ -29,14 +29,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/statBut" />
-    <Button
-        android:text="Settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/settings" />
+
     <Button
         android:text="Play"
         android:layout_width="wrap_content"
@@ -54,6 +47,15 @@
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
         android:layout_marginTop="14dp" />
+    <Switch
+        android:text="Music"
+        android:textSize="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/switch1" />
 
 
 </RelativeLayout>

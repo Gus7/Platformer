@@ -94,6 +94,19 @@ class SettingsActivity extends AppCompatActivity {
     }
     public void stop(View view){
         stopPlay();
+    }/*
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPlayer.pause();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPlayer.start();
+        mPlayer.setLooping(true);
+    }*/
+
+
 
 }

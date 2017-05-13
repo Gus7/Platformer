@@ -68,6 +68,16 @@ public class MyDraw extends View  {
         th2= BitmapFactory.decodeResource(context.getResources(), R.drawable.th2);
         th2l= BitmapFactory.decodeResource(context.getResources(), R.drawable.th2l);
         th3l= BitmapFactory.decodeResource(context.getResources(), R.drawable.th3l);
+        h1l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h1l);
+        h2l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h2l);
+        h3l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h3l);
+        h4l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h4l);
+        h5l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h5l);
+        h5= BitmapFactory.decodeResource(context.getResources(), R.drawable.h5);
+        h4= BitmapFactory.decodeResource(context.getResources(), R.drawable.h4);
+        h3= BitmapFactory.decodeResource(context.getResources(), R.drawable.h3);
+        h2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.h2);
+        h1= BitmapFactory.decodeResource(context.getResources(), R.drawable.h1);
 
         side = 0;
         try {
@@ -330,8 +340,19 @@ public class MyDraw extends View  {
     Bitmap heropicl3;
     Bitmap heropic4;
     Bitmap heropicl4;
+    Bitmap h5l;
+    Bitmap h4l;
+    Bitmap h3l;
+    Bitmap h2l;
+    Bitmap h1l;
+    Bitmap h5;
+    Bitmap h4;
+    Bitmap h3;
+    Bitmap h2;
+    Bitmap h1;
     static Bitmap bulletpic;
     Paint p = new Paint();
+
 
     public MyDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -437,6 +458,7 @@ public class MyDraw extends View  {
     int numstep = 0;
     int numl = 0;
     int numfire = 0;
+    int numf=0;
     @Override
     public void onDraw(Canvas canvas) {
         //Log.i(TAG,canvas.getHeight() + " " + canvas.getWidth() );
@@ -559,6 +581,7 @@ public class MyDraw extends View  {
             if(side == 3) hero.draw(canvas, heropic);
         }*/
         if (fire == 0&& onGround ) {
+            numf = 0;
             if (side == 4&& turnDirection != 0 ) {
                 if (numstep == 14 || numstep == 15 || numstep == 13 || numstep ==12 && onGround){
                     hero.draw(canvas, heropicl4);
@@ -597,6 +620,7 @@ public class MyDraw extends View  {
                 else if(side == 3) hero.draw(canvas, heropic);
             else hero.draw(canvas, herostpic);}
         }else if(onLadder&&fire == 0 && !onGround){
+            numf =0;
             if(mDirection != 0) {
                 if (numl == 4 || numl == 5 || numl == 6 || numl == 7) {
                     hero.draw(canvas, heropla);
@@ -608,9 +632,42 @@ public class MyDraw extends View  {
                 }
             }else hero.draw(canvas, heropla);
         }
-        else if (!onLadder && !onGround && fire ==0){
-            if(side == 4) hero.draw(canvas, heropicl3);
-            else if(side == 3) hero.draw(canvas, heropic3);
+        else if (!onLadder && !onGround){
+            if(side == 3) {
+                if (numf >= 14 || numf == 13 || numf == 12) {
+                    hero.draw(canvas, h5);
+                    numf += 1;
+                } else if (numf == 9|| numf == 10 || numf == 11 ) {
+                    hero.draw(canvas, h4);
+                    numf += 1;
+                }else if (numf == 8 || numf == 7 || numf == 6) {
+                    hero.draw(canvas, h3);
+                    numf += 1;
+                }else if (numf == 3|| numf == 4|| numf == 5) {
+                    hero.draw(canvas, h1);
+                    numf += 1;
+                }else if (numf == 2 || numf == 1 || numf == 0 ) {
+                    hero.draw(canvas, h1);
+                    numf += 1;
+                }
+
+            }
+            else if(side == 4) {
+                if (numf == 9|| numf == 10 || numf >= 11) {
+                    hero.draw(canvas, h5l);
+                    numf += 1;
+                } else if (numf == 8 || numf == 7 || numf == 6 ) {
+                    hero.draw(canvas, h4l);
+                    numf += 1;
+                }else if (numf == 3|| numf == 4|| numf == 5) {
+                    hero.draw(canvas, h3l);
+                    numf += 1;
+                }else if (numf == 2 || numf == 1 || numf == 0 ) {
+                    hero.draw(canvas, h1l);
+                    numf += 1;
+                }
+            }
+
             else hero.draw(canvas, herostpic);
         }
         else if(fire == -1){

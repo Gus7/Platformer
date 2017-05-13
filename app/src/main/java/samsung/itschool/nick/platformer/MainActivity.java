@@ -1,17 +1,20 @@
 package samsung.itschool.nick.platformer;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import static samsung.itschool.nick.platformer.FirstSplash.music;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.height;
 import static samsung.itschool.nick.platformer.FirstSplashDraw.width;
 import static samsung.itschool.nick.platformer.Hero.pos;
@@ -28,11 +31,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleApiClient client;
     static TextView mobs;
     static TextView rubies;
+    MediaPlayer mPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mPlayer=MediaPlayer.create(this, R.raw.bg);
 
 
         Button Up = (Button) findViewById(R.id.up);
@@ -62,6 +68,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         super.onBackPressed();
         bullet.clear();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPlayer.stop();
+        try {
+            mPlayer.prepare();
+            mPlayer.seekTo(0);
+
+        }
+        catch (Throwable t) {
+            Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(music){
+            mPlayer.start();
+            mPlayer.setLooping(true);}
     }
 
     /**
