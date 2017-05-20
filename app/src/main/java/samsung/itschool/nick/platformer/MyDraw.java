@@ -68,17 +68,17 @@ public class MyDraw extends View  {
         th2= BitmapFactory.decodeResource(context.getResources(), R.drawable.th2);
         th2l= BitmapFactory.decodeResource(context.getResources(), R.drawable.th2l);
         th3l= BitmapFactory.decodeResource(context.getResources(), R.drawable.th3l);
-        h1l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h1l);
+        /*h1l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h1l);
         h2l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h2l);
         h3l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h3l);
         h4l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h4l);
-        h5l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h5l);
+        */h5l= BitmapFactory.decodeResource(context.getResources(), R.drawable.h5l);
         h5= BitmapFactory.decodeResource(context.getResources(), R.drawable.h5);
-        h4= BitmapFactory.decodeResource(context.getResources(), R.drawable.h4);
+        /*h4= BitmapFactory.decodeResource(context.getResources(), R.drawable.h4);
         h3= BitmapFactory.decodeResource(context.getResources(), R.drawable.h3);
         h2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.h2);
         h1= BitmapFactory.decodeResource(context.getResources(), R.drawable.h1);
-
+            */
         side = 0;
         try {
             /*
@@ -340,16 +340,16 @@ public class MyDraw extends View  {
     Bitmap heropicl3;
     Bitmap heropic4;
     Bitmap heropicl4;
-    Bitmap h5l;
+    Bitmap h5l;/*
     Bitmap h4l;
     Bitmap h3l;
     Bitmap h2l;
-    Bitmap h1l;
-    Bitmap h5;
+    Bitmap h1l;*/
+    Bitmap h5;/*
     Bitmap h4;
     Bitmap h3;
     Bitmap h2;
-    Bitmap h1;
+    Bitmap h1;*/
     static Bitmap bulletpic;
     Paint p = new Paint();
 
@@ -390,6 +390,7 @@ public class MyDraw extends View  {
                     && mob[i].x1 - 20*height/1920  <= hero.pos.x
                     && mob[i].x2 + 20*height/1920 >= hero.pos.x){
                 bullet.clear();
+                numf =0;
                 try{
                 dbManager.addResult(levelId+1,
                         rubies, (int) mobs);
@@ -408,6 +409,7 @@ public class MyDraw extends View  {
         }
         if (pos.y > h + 200 || pos.y < 0-200 || pos.x > w + 300 || pos.x < 0 - 300   ){
             bullet.clear();
+            numf =0;
             try{
                 dbManager.addResult(levelId+1,
                         rubies, (int) mobs);
@@ -437,7 +439,7 @@ public class MyDraw extends View  {
         }
 
         for (int i =0 ; i < ruby.length; i++){
-                if (ruby[i].x1 <= pos.x && ruby[i].x2 >= pos.x && ruby[i].y1-40 <= pos.y && ruby[i].y1+40 + rubypic.getHeight() >= pos.y){
+                if (ruby[i].x1 <= pos.x && ruby[i].x2 >= pos.x && ruby[i].y1-40 <= pos.y && ruby[i].y2  >= pos.y){
                     ruby[i].x1 = 10000;
                     rubies += 1;
                     MainActivity.rubies.setText("Rubies: " + rubies);
@@ -633,7 +635,11 @@ public class MyDraw extends View  {
             }else hero.draw(canvas, heropla);
         }
         else if (!onLadder && !onGround){
-            if(side == 3) {
+            if(side == 3)hero.draw(canvas, h5);
+            else if(side == 4)hero.draw(canvas, h5l);
+            else hero.draw(canvas, herostpic);
+            fire = 0;/*
+                if(side == 3) {
                 if (numf >= 14 || numf == 13 || numf == 12) {
                     hero.draw(canvas, h5);
                     numf += 1;
@@ -644,7 +650,7 @@ public class MyDraw extends View  {
                     hero.draw(canvas, h3);
                     numf += 1;
                 }else if (numf == 3|| numf == 4|| numf == 5) {
-                    hero.draw(canvas, h1);
+                    hero.draw(canvas, h2);
                     numf += 1;
                 }else if (numf == 2 || numf == 1 || numf == 0 ) {
                     hero.draw(canvas, h1);
@@ -666,9 +672,9 @@ public class MyDraw extends View  {
                     hero.draw(canvas, h1l);
                     numf += 1;
                 }
-            }
+            }*/
 
-            else hero.draw(canvas, herostpic);
+
         }
         else if(fire == -1){
             if (  numfire== 9 ||numfire== 12|| numfire== 10|| numfire== 11 ) {
@@ -718,10 +724,11 @@ public class MyDraw extends View  {
         hero.move(canvas);
 
 
-        if (door.x1 <= pos.x && door.x1 + doorpic.getWidth() >= pos.x && door.y1 <= pos.y && door.y1 + doorpic.getHeight() >= pos.y){
+        if (door.x1 <= pos.x && door.x2 >= pos.x && door.y1 <= pos.y && door.y2>= pos.y){
 
 
 
+            numf =0;
             bullet.clear();
             levelId += 1;
             if (levelId==5)try{
