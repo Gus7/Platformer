@@ -446,7 +446,7 @@ public class MyDraw extends View  {
         }
 
         for (int i =0 ; i < ruby.length; i++){
-                if (ruby[i].x1 <= pos.x && ruby[i].x2 >= pos.x && ruby[i].y1-40 <= pos.y && ruby[i].y2  >= pos.y){
+                if (ruby[i].x1 <= pos.x && ruby[i].x2 >= pos.x && ruby[i].y1-70 <= pos.y && ruby[i].y2  >= pos.y){
                     ruby[i].x1 = 10000;
                     rubies += 1;
                     MainActivity.rubies.setText("Rubies: " + rubies);

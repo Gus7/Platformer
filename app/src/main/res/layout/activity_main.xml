@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-
     >
 
 
@@ -45,8 +44,8 @@
         android:text="Right"
         android:textSize="25dp"
 
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -56,11 +55,25 @@
         />
 
     <Button
+        android:text="Left"
+        android:textSize="25dp"
+
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:id="@+id/left"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/right"
+        android:layout_toStartOf="@+id/right"
+        android:color="#66FF6700"
+        android:alpha="0.50"
+        />
+
+    <Button
         android:text="Up"
         android:textSize="25dp"
 
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:color="#66FF6700"
         android:alpha="0.50"
         android:id="@+id/up"
@@ -72,8 +85,8 @@
         android:text="Down"
         android:textSize="25dp"
 
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:id="@+id/down"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -86,31 +99,18 @@
         android:text="FIRE"
         android:textSize="25dp"
 
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:id="@+id/fire"
         android:color="#66FF6700"
         android:alpha="0.50"
 
 
-        android:elevation="0dp"
-        style="@android:style/Widget.Button"
         android:layout_above="@+id/up"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Left"
-        android:textSize="25dp"
-
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:id="@+id/left"
-        android:color="#66FF6700"
-        android:alpha="0.50"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/right"
-        android:layout_toStartOf="@+id/right" />
+        android:layout_alignParentEnd="true"
+        android:elevation="0dp"
+        style="@android:style/Widget.Button" />
 
 
 </RelativeLayout>
