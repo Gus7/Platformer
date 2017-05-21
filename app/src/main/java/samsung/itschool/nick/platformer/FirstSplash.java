@@ -21,7 +21,7 @@ public class FirstSplash extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.first_splash);
 
         dbManager = DBManager.getInstance(this);
-        mPlayer=MediaPlayer.create(this, R.raw.bg);
+        mPlayer=MediaPlayer.create(this, R.raw.bg1);
         Button b = (Button) findViewById(R.id.button);
         Button men = (Button) findViewById(R.id.butMenu);
         //Button set = (Button) findViewById(R.id.settings);

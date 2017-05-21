@@ -60,6 +60,7 @@ public class MyDraw extends View  {
         ladderpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.ladder);
         blockpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.block);
         mobpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.mob);
+        mobpic2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.mob2);
         doorpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.door);
         bulletpic = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
         heropla2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.heroonl2);
@@ -282,8 +283,13 @@ public class MyDraw extends View  {
             }
 
             for(int i = 0; i < mob.length; i++){
+                if (i % 2 == 0){
                 mob[i] = new Moby(Float.parseFloat(mobX1[2*i+1])*width/1920,Float.parseFloat(mobY1[2*i+1])*height/1005,Float.parseFloat(mobX2[2*i+1])*width/1920,Float.parseFloat(mobY2[2*i+1])*height/1005,
                         Float.parseFloat(mobSPX[2*i+1])*width/1920, mobpic);
+                }else {
+                    mob[i] = new Moby(Float.parseFloat(mobX1[2*i+1])*width/1920,Float.parseFloat(mobY1[2*i+1])*height/1005,Float.parseFloat(mobX2[2*i+1])*width/1920,Float.parseFloat(mobY2[2*i+1])*height/1005,
+                            Float.parseFloat(mobSPX[2*i+1])*width/1920, mobpic2);
+                }
             }
 
 
@@ -327,6 +333,7 @@ public class MyDraw extends View  {
     Bitmap ladderpic;
     Bitmap blockpic;
     Bitmap mobpic;
+    Bitmap mobpic2;
     Bitmap doorpic;
     Bitmap thrower;
     Bitmap throwerl;
@@ -480,7 +487,8 @@ public class MyDraw extends View  {
 
         for (int i = 0; i < mob.length; i++){
             if(mob[i].isalife){
-            mob[i].draw(canvas, mobpic);
+                if(i%2==0) mob[i].draw(canvas, mobpic);
+                else mob[i].draw(canvas, mobpic2);
             mob[i].move(canvas);}
             else {mob[i].y1 -= 10000;
                 mob[i].y2 -= 10000;}

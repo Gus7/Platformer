@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPlayer=MediaPlayer.create(this, R.raw.bg);
+        mPlayer=MediaPlayer.create(this, R.raw.cr);
 
 
         Button Up = (Button) findViewById(R.id.up);
@@ -135,11 +135,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (side == 4){
             fire = -1;
-            bullet.add(new Bullet(pos.x-20*width/1920, pos.y-50*height/1080, -1, bulletpic));
+            bullet.add(new Bullet(pos.x-20*width/1920, pos.y-0*height/1080, -1, bulletpic));
         }
         else {
             fire = 1;
-            bullet.add(new Bullet(pos.x+40*width/1920, pos.y-50*height/1080, 1, bulletpic));
+            bullet.add(new Bullet(pos.x+40*width/1920, pos.y-0*height/1080, 1, bulletpic));
         }
 
     }
